@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#F9FAF9] text-[#1A1A1A] antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+/* Style spécifique pour tes boutons comme sur l'image */
+.btn-primary {
+  @apply bg-[#2D5A43] text-white px-6 py-2 rounded-full font-medium hover:bg-[#244835] transition-all;
+}
+
+@layer base {
+  :root {
+    --background: 90 20% 97%;
+    --foreground: 150 30% 10%;
+
+    --card: 90 15% 95%;
+    --card-foreground: 150 30% 10%;
+
+    --popover: 90 15% 95%;
+    --popover-foreground: 150 30% 10%;
+
+    --primary: 152 45% 28%;
+    --primary-foreground: 90 20% 97%;
+
+    --secondary: 38 40% 88%;
+    --secondary-foreground: 150 30% 15%;
+
+    --muted: 90 10% 92%;
+    --muted-foreground: 150 10% 45%;
+
+    --accent: 38 55% 65%;
+    --accent-foreground: 150 30% 10%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 150 15% 85%;
+    --input: 150 15% 85%;
+    --ring: 152 45% 28%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 150 20% 96%;
+    --sidebar-foreground: 150 30% 15%;
+    --sidebar-primary: 152 45% 28%;
+    --sidebar-primary-foreground: 90 20% 97%;
+    --sidebar-accent: 150 15% 90%;
+    --sidebar-accent-foreground: 150 30% 15%;
+    --sidebar-border: 150 15% 85%;
+    --sidebar-ring: 152 45% 40%;
+
+    /* Custom tokens */
+    --eco-green: 152 45% 28%;
+    --eco-green-light: 152 35% 45%;
+    --eco-earth: 38 40% 50%;
+    --eco-earth-light: 38 40% 88%;
+    --eco-cream: 40 30% 95%;
+    --eco-dark: 150 30% 10%;
+
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  .dark {
+    --background: 150 20% 6%;
+    --foreground: 90 15% 92%;
+    --card: 150 20% 9%;
+    --card-foreground: 90 15% 92%;
+    --popover: 150 20% 9%;
+    --popover-foreground: 90 15% 92%;
+    --primary: 152 45% 45%;
+    --primary-foreground: 150 30% 5%;
+    --secondary: 38 25% 20%;
+    --secondary-foreground: 90 15% 92%;
+    --muted: 150 15% 15%;
+    --muted-foreground: 150 10% 60%;
+    --accent: 38 40% 35%;
+    --accent-foreground: 90 15% 92%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 150 15% 18%;
+    --input: 150 15% 18%;
+    --ring: 152 45% 45%;
+    --sidebar-background: 150 20% 8%;
+    --sidebar-foreground: 90 15% 92%;
+    --sidebar-primary: 152 45% 45%;
+    --sidebar-primary-foreground: 150 30% 5%;
+    --sidebar-accent: 150 15% 14%;
+    --sidebar-accent-foreground: 90 15% 92%;
+    --sidebar-border: 150 15% 18%;
+    --sidebar-ring: 152 45% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-body {
+    font-family: var(--font-body);
+  }
+  .text-gradient-eco {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--eco-green)), hsl(var(--eco-green-light)));
+  }
+  .bg-gradient-eco {
+    background-image: linear-gradient(135deg, hsl(var(--eco-green)), hsl(var(--eco-green-light)));
+  }
+  .bg-gradient-hero {
+    background-image: linear-gradient(135deg, hsl(var(--eco-green) / 0.9), hsl(var(--eco-dark) / 0.85));
+  }
+}

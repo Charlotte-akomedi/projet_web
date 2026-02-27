@@ -1,0 +1,112 @@
+// Configuration du client Prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Configuration de la base de données PostgreSQL
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// --- UTILISATEURS & AUTH ---
+enum Role {
+  ADMIN
+  VENDEUR
+  CLIENT
+}
+
+model User {
+  id        String   @id @default(uuid()) // Identifiant unique sécurisé
+  email     String   @unique              // Un seul compte par email
+  password  String                        // Stocké sous forme de hash bcrypt
+  name      String                        // Nom complet utilisé par le frontend
+  role      Role     @default(CLIENT)     // Rôle par défaut
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]                       // Relation vers les commandes
+  cart      Cart?                         // Relation vers le panier
+}
+
+// --- PRODUITS & VARIANTES ---
+model Product {
+  id          String    @id @default(uuid())
+  name        String
+  description String
+  brand       String
+  category    String    // Kids, Women, Men
+  basePrice   Float
+  imageUrl    String?
+  variants    Variant[]
+  createdAt   DateTime  @default(now())
+}
+
+model Variant {
+  id          String                @id @default(uuid())
+  size        Float
+  stock       Int                   @default(0)
+  productId   String
+  product     Product               @relation(fields: [productId], references: [id])
+  cartItems   CartItem[]
+  orderItems  OrderItem[]
+  transactions InventoryTransaction[]
+}
+
+// --- GESTION DES STOCKS ---
+enum TransactionType {
+  SALE
+  RESTOCK
+  CORRECTION
+  RETURN
+}
+
+model InventoryTransaction {
+  id        String          @id @default(uuid())
+  variantId String
+  variant   Variant         @relation(fields: [variantId], references: [id])
+  type      TransactionType
+  quantity  Int
+  reason    String?
+  createdAt DateTime        @default(now())
+}
+
+// --- PANIER & RÉSERVATION ---
+model Cart {
+  id        String     @id @default(uuid())
+  userId    String     @unique
+  user      User       @relation(fields: [userId], references: [id])
+  items     CartItem[]
+  updatedAt DateTime   @updatedAt
+}
+
+model CartItem {
+  id            String    @id @default(uuid())
+  cartId        String
+  cart          Cart      @relation(fields: [cartId], references: [id])
+  variantId     String
+  variant       Variant   @relation(fields: [variantId], references: [id])
+  quantity      Int       @default(1)
+  reservedUntil DateTime?
+  createdAt     DateTime  @default(now())
+}
+
+// --- COMMANDES ---
+model Order {
+  id          String      @id @default(uuid())
+  userId      String
+  user        User        @relation(fields: [userId], references: [id])
+  totalAmount Float
+  status      String      @default("PAID")
+  items       OrderItem[]
+  createdAt   DateTime    @default(now())
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  variantId String
+  variant   Variant @relation(fields: [variantId], references: [id])
+  quantity  Int
+  price     Float
+}

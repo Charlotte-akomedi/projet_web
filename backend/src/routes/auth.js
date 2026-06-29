@@ -1,14 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { PrismaClient } = require('@prisma/client');
+const authController = require('../controllers/authController');
 
-const prisma = new PrismaClient(); 
-
-router.post('/register', async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
+router.post('/register', authController.register);
+router.post('/login', authController.login);
 
 
     const userExists = await prisma.user.findUnique({ where: { email } });

@@ -20,80 +20,14 @@ app.get('/api/health', (req, res) => {
   res.json({ status: "OK", message: "Le serveur Sneakers Family est en ligne ! 👟" });
 });
 
-
-app.get('/api/products', async (req, res) => {
-  try {
-    const products = await prisma.product.findMany({ include: { variants: true } });
-    res.json(products);
-  } catch (error) {
-    res.status(500).json({ error: "Erreur catalogue" });
-  }
-});
-
-
-app.get('/api/products/:id', async (req, res) => {
-  try {
-    const product = await prisma.product.findUnique({
-      where: { id: req.params.id },
-      include: { variants: true }
-    });
-    product ? res.json(product) : res.status(404).json({ message: "Introuvable" });
-  } catch (error) {
-    res.status(500).json({ error: "Erreur produit" });
-  }
-});
-
-
-app.post('/api/cart/add', (req, res) => {
-  const { productId, size, quantity } = req.body;
-  const newItem = {
-    id: Math.random().toString(36).substr(2, 9),
-    productId,
-    size,
-    quantity,
-    expiresAt: new Date(Date.now() + 15 * 60000)
-  };
-  tempCart.push(newItem);
-  res.status(201).json(newItem);
-});
-
-app.get('/api/cart', async (req, res) => {
-  const now = new Date();
-  tempCart = tempCart.filter(item => new Date(item.expiresAt) > now);
-
-  try {
-    const enrichedCart = await Promise.all(
-      tempCart.map(async (item) => {
-        const product = await prisma.product.findUnique({ where: { id: item.productId } });
-        return { 
-          ...item, 
-          productName: product?.name || "Modèle Inconnu",
-          productImage: product?.imageUrl || "",
-          productPrice: product?.basePrice || 0
-        };
-      })
-    );
-    res.json(enrichedCart);
-  } catch (error) {
-    res.status(500).json({ error: "Erreur enrichissement" });
-  }
-});
-
-app.delete('/api/cart/:id', (req, res) => {
-  tempCart = tempCart.filter(item => item.id !== req.params.id);
-  res.status(204).send();
-});
-
-app.delete('/api/cart/all', (req, res) => {
-  tempCart = [];
-  res.status(204).send();
-});
-
 async function main() {
   try {
     await prisma.$connect();
     console.log(" Prisma connecté");
     try { app.use('/api/auth', require('./routes/auth')); } catch (err) { console.warn("Auth absent"); }
+    try { app.use('/api/users', require('./routes/users')); } catch (err) { console.warn("Users absent"); }
+    try { app.use('/api/products', require('./routes/products')); } catch (err) { console.warn("Products absent"); }
+    try { app.use('/api/cart', require('./routes/cart')); } catch (err) { console.warn("Cart absent"); }
     app.listen(PORT, () => console.log(` Port ${PORT}`));
   } catch (e) {
     console.error(e);

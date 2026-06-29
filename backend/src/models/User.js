@@ -9,19 +9,19 @@ const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, "L'email est obligatoire"],
-    unique: true, // Empêche deux comptes avec le même email
+    unique: true, 
     lowercase: true,
     trim: true
   },
   password: {
     type: String,
     required: [true, "Le mot de passe est obligatoire"],
-    minlength: 6 // Sécurité de base
+    minlength: 6 
   },
   role: {
     type: String,
     enum: ['user', 'admin'],
-    default: 'user' // Par défaut, tout le monde est client
+    default: 'user' 
   },
   createdAt: {
     type: Date,

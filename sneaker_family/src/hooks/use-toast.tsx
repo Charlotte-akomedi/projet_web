@@ -24,7 +24,7 @@ function genId() {
   return count.toString()
 }
 
-// ... (logique interne simplifiée pour l'exemple)
+
 export function useToast() {
   const [toasts, setToasts] = React.useState<ToasterToast[]>([])
   const toast = ({ ...props }: Omit<ToasterToast, "id">) => {

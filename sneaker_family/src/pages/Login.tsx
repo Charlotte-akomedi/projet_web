@@ -4,15 +4,14 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Leaf, Lock, Mail, Loader2, AlertCircle } from "lucide-react";
 import { api } from "@/lib/api";
-import { useAuth } from "@/contexts/AuthContext"; // ✅ Ajout de l'import du contexte
-
+import { useAuth } from "@/contexts/AuthContext"; 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth(); // ✅ Récupération de la fonction login
+  const { login } = useAuth(); 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,19 +19,16 @@ export default function Login() {
     setError("");
 
     try {
-      // Appel réel au backend Express via Prisma
       const response = await api.post("/auth/login", { email, password });
       
       if (response.data.token) {
-        // ✅ Utilisation du contexte pour mettre à jour l'état global
-        // Cela gère automatiquement le localStorage et l'état de l'utilisateur
+
         login(response.data); 
         
-        // Redirection vers l'accueil avec un message de bienvenue
+        
         navigate("/", { state: { welcomeMessage: `Ravi de vous revoir !` } }); 
       }
     } catch (err: any) {
-      // Affichage de l'erreur envoyée par le serveur (ex: "Identifiants invalides")
       setError(err.response?.data?.message || "Impossible de se connecter au serveur.");
     } finally {
       setIsLoading(false);
@@ -41,7 +37,7 @@ export default function Login() {
 
   return (
     <Layout>
-      {/* ... Le reste de ton JSX reste identique, il est parfait ... */}
+      {}
       <div className="min-h-[80vh] flex items-center justify-center bg-[#F9FAF9] px-6">
         <div className="w-full max-w-md bg-white p-10 rounded-[2.5rem] shadow-2xl border border-gray-100">
           <div className="text-center mb-8">

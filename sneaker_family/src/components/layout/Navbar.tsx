@@ -12,7 +12,6 @@ export function Navbar() {
   const { user, logout } = useAuth();
 
   useEffect(() => {
-    // ✅ Si Charlotte se déconnecte, on force le badge à 0 immédiatement
     if (!user) {
       setCartCount(0);
       return;
@@ -35,13 +34,13 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b bg-white/90 backdrop-blur-md">
       <div className="container mx-auto flex h-20 items-center justify-between px-6">
-        {/* Logo */}
+        {}
         <Link to="/" className="flex items-center gap-2 font-bold text-xl text-[#2D5A43]">
           <Leaf className="h-6 w-6" />
           <span>Sneakers Family</span>
         </Link>
 
-        {/* ✅ RETOUR DES MENUS (Qui étaient partis !) */}
+        {}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
           <Link to="/catalogue" className="hover:text-[#2D5A43] transition-colors">Catalogue</Link>
           <Link to="/catalogue?category=Men" className="hover:text-[#2D5A43] transition-colors">Homme</Link>
@@ -49,7 +48,7 @@ export function Navbar() {
           <Link to="/catalogue?category=Kids" className="hover:text-[#2D5A43] transition-colors">Enfant</Link>
         </nav>
 
-        {/* Actions */}
+        {}
         <div className="flex items-center gap-4">
           <button onClick={() => navigate("/panier")} className="relative p-2 text-gray-600 hover:text-[#2D5A43]">
             <ShoppingCart className="h-6 w-6" />

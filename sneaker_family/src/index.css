@@ -11,7 +11,7 @@
   }
 }
 
-/* Style spécifique pour tes boutons comme sur l'image */
+
 .btn-primary {
   @apply bg-[#2D5A43] text-white px-6 py-2 rounded-full font-medium hover:bg-[#244835] transition-all;
 }

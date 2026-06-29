@@ -16,7 +16,7 @@ export default function Auth() {
   const [fullName, setFullName] = useState("");
   const [loading, setLoading] = useState(false);
   
-  //  On utilise les noms exacts exportés par ton AuthContext
+
   const { login, register } = useAuth(); 
   const { toast } = useToast();
   const navigate = useNavigate();

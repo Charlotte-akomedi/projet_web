@@ -14,7 +14,7 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all p-4 flex flex-col h-full border border-gray-100 group">
-      {/* ✅ Cliquer sur l'image redirige vers les détails */}
+      {}
       <Link to={`/product/${product.id}`} className="block">
         <div className="h-48 w-full overflow-hidden rounded-2xl mb-4 bg-[#F9FAF9] flex items-center justify-center">
           <img

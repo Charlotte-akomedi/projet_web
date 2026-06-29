@@ -6,7 +6,7 @@ import {
   ToastProvider, 
   ToastTitle, 
   ToastViewport 
-} from "./toast"; // ✅ Utilisation du chemin relatif local
+} from "./toast"; 
 
 export function Toaster() {
   const { toasts } = useToast();

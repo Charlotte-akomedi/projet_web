@@ -7,11 +7,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Slider } from "@/components/ui/slider";
 import { Search, SlidersHorizontal, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getProducts } from "@/lib/api"; //  Utilisation de ton API réelle
+import { getProducts } from "@/lib/api";
 
 export default function Catalogue() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [products, setProducts] = useState<any[]>([]); // Utilisation de tes données Prisma
+  const [products, setProducts] = useState<any[]>([]); 
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [priceRange, setPriceRange] = useState([0, 500]);
@@ -23,7 +23,7 @@ export default function Catalogue() {
     const fetch = async () => {
       setLoading(true);
       try {
-        //  Récupération depuis ton serveur Express port 5000
+       
         const data = await getProducts();
         setProducts(data ?? []);
       } catch (error) {
@@ -33,11 +33,11 @@ export default function Catalogue() {
       }
     };
     fetch();
-  }, []); // On charge tout, le filtrage se fait côté client pour plus de fluidité
+  }, []); 
 
   const filtered = useMemo(() => {
     return products.filter(p => {
-      //  Filtrage par catégorie (respecte Men, Women, Kids de ton Prisma)
+      
       const matchesCategory = !category || p.category === category;
       const matchesSearch = !search || 
         p.name.toLowerCase().includes(search.toLowerCase()) || 
@@ -60,7 +60,7 @@ export default function Catalogue() {
           {filtered.length} modèle{filtered.length !== 1 ? "s" : ""} trouvé{filtered.length !== 1 ? "s" : ""}
         </p>
 
-        {/* Barre de recherche et filtres */}
+        {}
         <div className="flex flex-col md:flex-row gap-4 mb-8">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />

@@ -11,7 +11,6 @@ export default function Index() {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
-  // Récupération du message de succès après redirection du Login
   const welcomeMessage = location.state?.welcomeMessage;
 
   useEffect(() => {
@@ -27,7 +26,7 @@ export default function Index() {
 
   return (
     <Layout>
-      {/* Bannière de notification de connexion */}
+      {}
       {welcomeMessage && (
         <div className="bg-[#2D5A43] text-white py-3 px-6 flex items-center justify-center gap-2 animate-in slide-in-from-top duration-500">
           <CheckCircle className="h-4 w-4" />
@@ -35,7 +34,7 @@ export default function Index() {
         </div>
       )}
 
-      {/* Hero Section */}
+      {}
       <section className="relative overflow-hidden bg-[#2D5A43] min-h-[500px] flex items-center">
         <div className="absolute inset-0 bg-gradient-to-r from-[#2D5A43] to-transparent z-10" />
         
@@ -60,7 +59,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Engagements */}
+      {}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold text-center text-[#2D5A43] mb-16">Nos engagements</h2>
@@ -82,7 +81,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Collections (Emoji retirés pour un rendu plus pro) */}
+      {}
       <section className="py-20 bg-[#F9FAF9]">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold text-center text-[#2D5A43] mb-16">Nos collections</h2>
@@ -107,7 +106,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Featured products */}
+      {}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between mb-12">

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Leaf, Mail, Lock, User, Loader2, AlertCircle } from "lucide-react";
-import { api } from "@/lib/api"; // Import de ton instance Axios configurée
+import { api } from "@/lib/api"; 
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -19,13 +19,12 @@ export default function Register() {
     setError("");
 
     try {
-      // ✅ Envoi des données au backend Express/Prisma
+     
       await api.post("/auth/register", { name, email, password });
       
-      // Si l'inscription réussit, on redirige vers le login
+
       navigate("/login", { state: { message: "Compte créé ! Connectez-vous." } });
     } catch (err: any) {
-      // Récupération de l'erreur (ex: "Cet utilisateur existe déjà")
       setError(err.response?.data?.message || "Une erreur est survenue lors de l'inscription.");
     } finally {
       setIsLoading(false);

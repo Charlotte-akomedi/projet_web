@@ -13,14 +13,14 @@ app.use(cors({
 }));
 app.use(express.json());
 
-let tempCart = []; // Simulation panier temporaire
+let tempCart = []; 
 
-// 1. Santé
+
 app.get('/api/health', (req, res) => {
   res.json({ status: "OK", message: "Le serveur Sneakers Family est en ligne ! 👟" });
 });
 
-// 2. Catalogue
+
 app.get('/api/products', async (req, res) => {
   try {
     const products = await prisma.product.findMany({ include: { variants: true } });
@@ -30,7 +30,7 @@ app.get('/api/products', async (req, res) => {
   }
 });
 
-// 3. Détails Produit
+
 app.get('/api/products/:id', async (req, res) => {
   try {
     const product = await prisma.product.findUnique({
@@ -43,7 +43,7 @@ app.get('/api/products/:id', async (req, res) => {
   }
 });
 
-// 4. Ajouter au panier
+
 app.post('/api/cart/add', (req, res) => {
   const { productId, size, quantity } = req.body;
   const newItem = {
@@ -57,7 +57,6 @@ app.post('/api/cart/add', (req, res) => {
   res.status(201).json(newItem);
 });
 
-// 5. Récupérer le panier (Enrichi via Prisma)
 app.get('/api/cart', async (req, res) => {
   const now = new Date();
   tempCart = tempCart.filter(item => new Date(item.expiresAt) > now);
@@ -80,13 +79,11 @@ app.get('/api/cart', async (req, res) => {
   }
 });
 
-// 6. Supprimer UN article
 app.delete('/api/cart/:id', (req, res) => {
   tempCart = tempCart.filter(item => item.id !== req.params.id);
   res.status(204).send();
 });
 
-//  7. VIDER TOUT LE PANIER (Après paiement ou logout)
 app.delete('/api/cart/all', (req, res) => {
   tempCart = [];
   res.status(204).send();

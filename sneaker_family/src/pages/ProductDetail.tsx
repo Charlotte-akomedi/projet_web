@@ -4,7 +4,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/contexts/AuthContext";
-import { api } from "@/lib/api"; // ✅ Utilisation de ton instance API
+import { api } from "@/lib/api"; 
 import { ShoppingCart, ArrowLeft, Timer, Check, Loader2 } from "lucide-react";
 
 export default function ProductDetail() {
@@ -20,7 +20,6 @@ export default function ProductDetail() {
   useEffect(() => {
     if (!id) return;
     
-    // ✅ Récupération du produit depuis ton port 5000
     api.get(`/products/${id}`)
       .then((res) => {
         setProduct(res.data);
@@ -40,7 +39,6 @@ export default function ProductDetail() {
 
     setAdding(true);
     try {
-      // ✅ Appel à ton futur endpoint panier backend
       await api.post("/cart/add", {
         productId: product.id,
         size: selectedSize,
